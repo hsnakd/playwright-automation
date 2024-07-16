@@ -1,0 +1,126 @@
+* creta a folder under // Desktop/VS Code Projects
+	- playwright-automation
+
+* Open VS Code 
+	- open folder
+
+* Open terminal
+	- npm init playwright@latest
+	- 	✔ Do you want to use TypeScript or JavaScript? · JavaScript
+		✔ Where to put your end-to-end tests? · tests
+		✔ Add a GitHub Actions workflow? (y/N) · false
+		✔ Install Playwright browsers (can be done manually via 'npx playwright install')? (Y/n) · true
+
+	- npx playwright test (By default it runs the tests in headless mode)
+
+	- npx playwright test –-headed
+
+* open playwright.config.js
+
+	-  make fullyParallel false for education
+
+			/* Run tests in files in parallel */
+	  		fullyParallel: false, 
+
+  	- make firefox and webkit in comment (just for using chrome)
+
+		  /*
+		    {
+		      name: 'firefox',
+		      use: { ...devices['Desktop Firefox'] },
+		    },
+
+		    {
+		      name: 'webkit',
+		      use: { ...devices['Desktop Safari'] },
+		    },
+		  */
+
+
+  - add followings for maximize screen according to screen size ==> viewport:{width:xxxx, height: xxxx},
+
+		  	{
+		      name: 'chromium',
+		      use: { 
+		        ...devices['Desktop Chrome'],
+		          viewport:{width: 1800, height: 1169}, // maximize window
+		          headless: false // headed mode
+		       },
+		    },
+
+* open extensions and install 
+	
+	- NPM Run
+
+	
+* open package.json
+	- add tests and report for run the test without using terminal
+
+
+	  "scripts": {
+	    "tests": "playwright test", 
+    	"test:specific": "playwright test ./tests/day01/*.test.js",  					// run all tests
+		"test:specific": "playwright test ./tests/day01/playwright-intro.test.js",		// run specific test
+	    "report": "playwright show-report"
+	  },
+
+
+
+* @playwright/test package
+	• Designed specifically for end-to-end testing
+	• Uses a specialized test runner and framework
+	• Comes with its own built-in reporters
+	• Introduces the concept of fixtures
+	• Has its own global configurations
+	• It includes built-in assertions
+
+	■ page 		==> tab
+	■ browser 	==> browser
+	■ context 	==> window
+
+* open extensions and install 
+	
+	- Playwright Test for VSCode
+	(Open "Test" and you can run specific test)
+
+
+* Locators
+	■ CSS selectors: page.locator('button.primary')
+	■ XPath: page.locator('//button[contains(text(), "Submit")]')
+	■ Text content: page.locator('text=Submit')
+	■ TestID: page.locator('data-testid=submit-button')
+
+
+
+
+
+Notes : 
+
+Inside that directory, you can run several commands:
+
+  npx playwright test
+    Runs the end-to-end tests.
+
+  npx playwright test --ui
+    Starts the interactive UI mode.
+
+  npx playwright test --project=chromium
+    Runs the tests only on Desktop Chrome.
+
+  npx playwright test example
+    Runs the tests in a specific file.
+
+  npx playwright test --debug
+    Runs the tests in debug mode.
+
+  npx playwright codegen
+    Auto generate tests with Codegen.
+
+We suggest that you begin by typing:
+
+    npx playwright test
+
+
+To open last HTML report run:
+
+  npx playwright show-report
