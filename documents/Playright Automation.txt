@@ -57,12 +57,12 @@
 	- add tests and report for run the test without using terminal
 
 
-	  "scripts": {
-	    "tests": "playwright test", 
-    	"test:specific": "playwright test ./tests/day01/*.test.js",  					// run all tests
-		"test:specific": "playwright test ./tests/day01/playwright-intro.test.js",		// run specific test
-	    "report": "playwright show-report"
-	  },
+		"scripts": {
+			"tests": "playwright test", 
+				"test:specific": "playwright test ./tests/day01/playwright-intro.test.js",		 
+			"report": "playwright show-report",
+			"open": "npx playwright open"
+		},
 
 
 
@@ -97,6 +97,9 @@
 Notes : 
 
 Inside that directory, you can run several commands:
+
+  npx playwright open
+
 
   npx playwright test
     Runs the end-to-end tests.

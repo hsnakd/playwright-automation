@@ -5,7 +5,8 @@
   "scripts": {
     "tests": "playwright test", 
 		"test:specific": "playwright test ./tests/day01/playwright-intro.test.js",		 
-    "report": "playwright show-report"
+    "report": "playwright show-report",
+    "open": "npx playwright open"
   },
   "keywords": [],
   "author": "",
