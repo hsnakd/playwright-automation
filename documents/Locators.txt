@@ -1,0 +1,72 @@
+BASIC LOCATORS
+
+ID				                 driver.findElement(By.id(“button1”));
+name				             driver.findElement(By.name(“full_name”));
+tagName			                 driver.findElement(By.tagName(“input”));
+className			             driver.findElement(By.tagName(“nav-link”));
+linkText			             driver.findElement(By.linkText(“Example4: Element on page”));
+partialLinkText			         driver.findElement(By.partialLinkText(“Example4”));
+
+XPATH
+
+Known Att&Value		             //tagName[@attribute=’value’]
+Known Value Only		         //tagName[@*=’value’]
+Known Visible Text		         //tagName[text()=’exact text’]
+                                 //tagName[.=’exact text’]
+                                 //*[text()=’exact text’]
+                                 //*[.=’exact text’]
+Known Visible Text (Partial)	 //tagName[contains(text(),’exact text’)]
+Dynamic Element (Contains)	     //tagName[contains(@attribute,’value’)]
+Dynamic Element (startswith)	 //tagName[startswith(@attribute,’value’)]
+Dynamic Element (endswith)	     //tagName[endswith(@attribute,’value’)]
+With Multiple Attributes	     //tagName[@attribute1=’value1’] [@attribute2=’value2’]
+                                 //tagName[@attribute1=’value1’ and @attribute2=’value2’]
+                                 //tagName[@attribute1=’value1’] or @attribute2=’value2’]
+Relative to Known Element	     //<Known part>/parent::*
+                                 //<Known part>/parent::tagName
+                                 //<Known part>/following-sibling::*
+                                 //<Known part>/following-sibling::tagName
+
+CSS
+
+ID				                 tagName#idValue
+				                 #idValue
+className			             tagName.classValue
+				                 .classValue
+				                 tagName.btn.btn-primary
+Known Att&Value		             tagName[attribute=’value’]
+				                 [attribute=’value’]
+Dynamic Element (contains)	     tagName[ attribute*,’value’]
+Dynamic Element (startsWith)	 tagName[ attribute^,’value’]
+Dynamic Element (endsWith)	     tagName[ attribute$,’value’]
+If Multiple Results		         <CSS>:nth-of-type(index)
+Multiple Attributes		         tagName[attribute1=’value1’] [attribute2=’value2’]
+Child Element			         tag > tag > tag
+Parent Element			         tag tag tag
+Sibling Element			         <CSS>~tagName
+
+
+
+//    Above
+//    If the email text field element is not easily identifiable for some reason, but the password text field element is, we can locate the text field element using the fact that it is an “input” element “above” the password element.
+    By emailLocator = RelativeLocator.with(By.tagName("input")).above(By.id("password"));
+
+//    Below
+//    If the password text field element is not easily identifiable for some reason, but the email text field element is, we can locate the text field element using the fact that it is an “input” element “below” the email element.
+    By passwordLocator = RelativeLocator.with(By.tagName("input")).below(By.id("email"));
+
+//    Left of
+//    If the cancel button is not easily identifiable for some reason, but the submit button element is, we can locate the cancel button element using the fact that it is a “button” element to the “left of” the submit element.
+    By cancelLocator = RelativeLocator.with(By.tagName("button")).toLeftOf(By.id("submit"));
+
+//    Right of
+//    If the submit button is not easily identifiable for some reason, but the cancel button element is, we can locate the submit button element using the fact that it is a “button” element “to the right of” the cancel element.
+    By submitLocator = RelativeLocator.with(By.tagName("button")).toRightOf(By.id("cancel"));
+
+//    Near
+//    If the relative positioning is not obvious, or it varies based on window size, you can use the near method to identify an element that is at most 50px away from the provided locator. One great use case for this is to work with a form element that doesn’t have an easily constructed locator, but its associated input label element does.
+    By emailLocator2 = RelativeLocator.with(By.tagName("input")).near(By.id("lbl-email"));
+
+//    Chaining relative locators
+//    You can also chain locators if needed. Sometimes the element is most easily identified as being both above/below one element and right/left of another.
+    By submitLocator2 = RelativeLocator.with(By.tagName("button")).below(By.id("email")).toRightOf(By.id("cancel"));
