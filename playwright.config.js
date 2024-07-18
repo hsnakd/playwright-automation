@@ -34,12 +34,8 @@ module.exports = defineConfig({
       name: 'chromium',
       use: { 
         ...devices['Desktop Chrome'],
-          viewport:{width: 1800, height: 1169}, // maximize window
-          headless: false, // headed mode
-          timeout: 60000, // Increase timeout to 60 seconds
-          launchOptions: {
-            slowMo: 50, // Optional: slow down operations by 50ms
-          },
+          viewport:{width: 1920, height: 1080}, // maximize window: set it based on your computer screen' size
+          headless: false // headed mode
        },
     },
 

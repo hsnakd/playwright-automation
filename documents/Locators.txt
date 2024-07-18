@@ -1,3 +1,82 @@
+https://playwright.dev/docs/locators
+
+*** page.getByRole() to locate by explicit and implicit accessibility attributes.
+    <button>Sign in</button>
+        await page.getByRole('button', { name: 'Sign in' }).click();
+
+    <h3>Sign up</h3>
+    <label>
+        <input type="checkbox" /> Subscribe
+    </label>
+    <br/>
+    <button>Submit</button>
+        await expect(page.getByRole('heading', { name: 'Sign up' })).toBeVisible();
+        await page.getByRole('checkbox', { name: 'Subscribe' }).check();
+        await page.getByRole('button', { name: /submit/i }).click();
+
+        const locator = page.getByRole('button', { name: 'Sign in' });
+        await locator.hover();
+        await locator.click();
+
+        const locator = page.frameLocator('#my-frame').getByRole('button', { name: 'Sign in' });
+        await locator.click();
+
+
+*** page.getByText() to locate by text content.
+    <span>Welcome, John</span>
+        await expect(page.getByText('Welcome, John')).toBeVisible();
+        await expect(page.getByText('Welcome, John', { exact: true })).toBeVisible();
+        await expect(page.getByText(/welcome, [A-Za-z]+$/i)).toBeVisible();
+
+
+*** page.getByLabel() to locate a form control by associated label's text.
+    <label>Password <input type="password" /></label>
+        await page.getByLabel('Password').fill('secret');
+
+        await page.getByLabel('User Name').fill('John');
+        await page.getByLabel('Password').fill('secret-password');
+
+
+*** page.getByPlaceholder() to locate an input by placeholder.
+    <input type="email" placeholder="name@example.com" />
+        await page.getByPlaceholder('name@example.com').fill('playwright@microsoft.com');
+
+
+*** page.getByAltText() to locate an element, usually image, by its text alternative.
+    <img alt="playwright logo" src="/img/playwright-logo.svg" width="100" />
+        await page.getByAltText('playwright logo').click();
+
+
+
+*** page.getByTitle() to locate an element by its title attribute.
+    <span title='Issues count'>25 issues</span>
+        await expect(page.getByTitle('Issues count')).toHaveText('25 issues');
+
+
+
+*** page.getByTestId() to locate an element based on its data-testid attribute (other attributes can be configured).
+    <button data-testid="directions">Itinéraire</button>
+        await page.getByTestId('directions').click();
+
+    <button data-pw="directions">Itinéraire</button>
+        await page.getByTestId('directions').click();
+
+Locate by CSS or XPath
+    await page.locator('css=button').click();
+    await page.locator('xpath=//button').click();
+
+    await page.locator('button').click();
+    await page.locator('//button').click();
+
+await page.locator('#tsf > div:nth-child(2) > div.A8SBwf > div.RNNXgb > div > div.a4bIc > input').click();
+
+await page.locator('//*[@id="tsf"]/div[2]/div[1]/div[1]/div/div[2]/input').click();
+
+
+
+
+
+
 BASIC LOCATORS
 
 ID				                 driver.findElement(By.id(“button1”));
