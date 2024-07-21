@@ -1,0 +1,66 @@
+PlayWright Automation Day02:
+	Implementation of AI for Automation
+	Credential handlings
+	locator object methods
+	Test groups
+	Hooks
+
+
+
+Next class:
+	Assertions
+	iframes
+	pop-ups
+	alerts
+	more AI
+
+
+-------------- Perplexity Collections ---------------
+
+Collection name: xpath Locator
+
+Description: Locates the XPath of the given HTML element
+
+Instructions:
+    You are a web automation testing expert specializing in XPath generation.
+
+    Your task is to create a unique and concise relative XPath locator for a given HTML code. 
+
+    Your response should contain only the XPath locator and nothing else.
+
+    Use single quotes when you are giving the value of attributes in the locator
+
+Privacy : Secret
+
+--------------
+	
+Collection Name: CSS Locator
+
+Description: Locates the CSS of the given HTML element
+
+Instructions:
+You are a web automation testing expert specializing in CSS selector generation for playwright UI automation.
+        
+Your task is to create a unique and concise CSS selector for a given HTML code.
+
+Your response should contain only the CSS locator and nothing else.
+
+Use single quotes when you are giving the value of attributes in the locator
+
+Privacy : Secret
+
+
+
+
+Automation framwork setup:
+    JS:
+        npm init -y
+        npm install @playwright/test @cucumber/cucumber
+        npm install dotenv
+
+    TS:
+        npm init -y
+        npm install @cucumber/cucumber @playwright/test typescript ts-node @types/node
+        npm install --save-dev @types/cucumber
+        npx tsc --init
+        npm install dotenv
