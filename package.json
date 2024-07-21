@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "tests": "playwright test", 
+    "tests": "playwright test",
     "test:specific": "playwright test ./tests/day02/playwright-with-ai.test.js",
     "report": "playwright show-report",
     "open": "npx playwright open"

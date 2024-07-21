@@ -1,8 +1,10 @@
 import { test } from '@playwright/test';
+import dotenv from "dotenv";
+dotenv.config("./.env");
 
 test('Library Login', async ({ page }) => {
   // go to the "https://library2.cydeo.com"
-  await page.goto('https://library2.cydeo.com');
+  await page.goto(process.env.LIBRARY_URL);
 
   // create locator variable named usernameInput and use this xpath // //input[@id='inputEmail']
   const usernameInput = await page.locator("//input[@id='inputEmail']");
@@ -17,10 +19,10 @@ test('Library Login', async ({ page }) => {
   await page.waitForTimeout(2000);  
 
   // type 'admin' into the usernameInput
-  await usernameInput.fill('librarian10@library');
+  await usernameInput.fill(process.env.LIBRARY_STUDENT_USERNAME);
 
   // type 'password' into the passwordInput
-  await passwordInput.fill('libraryUser');
+  await passwordInput.fill(process.env.LIBRARY_STUDENT_PASSWORD);
 
   // click on the signinButton
   await signinButton.click();
