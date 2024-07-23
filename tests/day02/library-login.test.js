@@ -11,7 +11,7 @@ test('Library Login', async ({ page }) => {
   const passwordInput = await page.locator("//input[@id='inputPassword']");
 
   // create locator variable named signinButton and use this xpath //button[@type='submit'] to locate
-  const signinButton = await page.locator("//button[@type='submit']");
+  const signInButton = await page.locator("//button[@type='submit']");
 
   // pause the automation for 2 seconds
   await page.waitForTimeout(2000);  
