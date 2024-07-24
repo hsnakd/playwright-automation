@@ -1,0 +1,17 @@
+PlayWright Automation Day03:
+    Features & Scenarios of Library Application
+    assertions
+    iframes
+    Alerts
+    
+    
+
+
+
+Next Class:
+    Drag & Drop, double click, right click etc..
+    Scrolling
+    Web Tables
+    Web Based Authentication
+    File upload & downloads
+    More AI
