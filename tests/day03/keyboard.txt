@@ -1,0 +1,150 @@
+In Playwright, you can perform various keyboard actions using the keyboard API. Here's a list of common keyboard actions you can perform:
+
+Typing Text
+    await page.keyboard.type('Hello, World!');
+
+Pressing a Key
+    await page.keyboard.press('Enter');
+    await page.keyboard.press('ArrowRight');
+
+Holding Down a Key
+    await page.keyboard.down('Shift');
+    await page.keyboard.press('KeyA'); // Types 'A'
+    await page.keyboard.up('Shift');
+
+Sending Multiple Key Presses (e.g., Ctrl + A)
+    await page.keyboard.down('Control');
+    await page.keyboard.press('A');
+    await page.keyboard.up('Control');
+
+Sending Key Combination
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Control+C');
+    await page.keyboard.press('Control+V');
+
+Pressing Multiple Keys Sequentially
+    await page.keyboard.type('Hello');
+    await page.keyboard.press('Space');
+    await page.keyboard.type('World');
+
+Releasing All Pressed Keys
+    await page.keyboard.up('Control');
+    await page.keyboard.up('Shift');
+
+Example Usage Inside a Frame
+    const frame = await page.frame({ name: 'frameName' });
+    await frame.press('Control+A'); // Select all text inside the frame
+
+Using keyboard Actions Inside the Frame
+    const frame = await page.frame({ name: 'frameName' });
+    await frame.keyboard.down('Control');
+    await frame.keyboard.press('A');
+    await frame.keyboard.up('Control');
+
+Holding Multiple Keys Simultaneously
+    await page.keyboard.down('Control');
+    await page.keyboard.down('Shift');
+    await page.keyboard.press('KeyA'); // Select all with Control+Shift+A
+    await page.keyboard.up('Shift');
+    await page.keyboard.up('Control');
+
+Using Function Keys
+    await page.keyboard.press('F1');
+    await page.keyboard.press('F12');
+
+Simulating Key with Modifier
+    await page.keyboard.press('Control+Shift+T'); // Reopen closed tab
+
+Pressing Special Keys
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Escape');
+    await page.keyboard.press('Backspace');
+    await page.keyboard.press('Delete');
+    await page.keyboard.press('PageUp');
+    await page.keyboard.press('PageDown');
+
+Typing with Delay Between Keystrokes
+    await page.keyboard.type('Hello, World!', { delay: 100 }); // Delay of 100ms between each keystroke
+
+Sending Text Input Directly to an Element
+    const element = await page.$('input#username');
+    await element.type('example_username');
+
+Using the Arrow Keys
+    await page.keyboard.press('ArrowUp');
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('ArrowLeft');
+    await page.keyboard.press('ArrowRight');
+
+Typing Unicode Characters
+    await page.keyboard.insertText('𝌆'); // Inserts the Unicode character
+
+Performing Keyboard Shortcuts
+    await page.keyboard.press('Control+S'); // Save action
+    await page.keyboard.press('Control+P'); // Print action
+
+Navigating with Home and End Keys
+    await page.keyboard.press('Home'); // Move to the beginning of the line or document
+    await page.keyboard.press('End'); // Move to the end of the line or document
+
+Combining Key Actions with Mouse Actions
+    await page.mouse.click(100, 200);
+    await page.keyboard.type('Some text');
+    await page.keyboard.press('Enter');
+
+Example of a Complex Key Combination
+    // Select all text, cut, and paste it into another input field
+    await page.keyboard.down('Control');
+    await page.keyboard.press('A'); // Select all text
+    await page.keyboard.press('X'); // Cut text
+    await page.keyboard.up('Control');
+
+    const anotherInput = await page.$('input#anotherField');
+    await anotherInput.click();
+    await page.keyboard.down('Control');
+    await page.keyboard.press('V'); // Paste text
+    await page.keyboard.up('Control');
+
+To select a word using Shift + ArrowLeft 
+    // Place the cursor at the end of the word
+    await page.click('input#example', { clickCount: 1 });
+    await page.keyboard.press('End');
+
+    // Hold down Shift and press ArrowLeft to select the word
+    await page.keyboard.down('Shift');
+    for (let i = 0; i < 5; i++) { // Adjust the number of times ArrowLeft is pressed based on the word length
+        await page.keyboard.press('ArrowLeft');
+    }
+    await page.keyboard.up('Shift');
+
+To select a word using Shift + ArrowRight
+    // Place the cursor at the beginning of the word
+    await page.click('input#example', { clickCount: 1 }); // Adjust selector as necessary
+    await page.keyboard.press('Home');
+
+    // Hold down Shift and press ArrowRight to select the word
+        await page.keyboard.down('Shift');
+        for (let i = 0; i < 5; i++) { // Adjust the number of times ArrowRight is pressed based on the word length
+            await page.keyboard.press('ArrowRight');
+        }
+        await page.keyboard.up('Shift');
+
+
+To select a word using Shift + ArrowRight dynamically
+
+    const selector = 'input#example'; // Replace with your element's selector
+
+    // Get the text from the input field
+    const word = await page.$eval(selector, el => el.value.trim());
+    const wordLength = word.length;
+
+    // Place the cursor at the beginning of the word
+    await page.click(selector, { clickCount: 1 });
+    await page.keyboard.press('Home');
+
+    // Hold down Shift and press ArrowRight to select the word
+    await page.keyboard.down('Shift');
+    for (let i = 0; i < wordLength; i++) {
+        await page.keyboard.press('ArrowRight');
+    }
+    await page.keyboard.up('Shift');
