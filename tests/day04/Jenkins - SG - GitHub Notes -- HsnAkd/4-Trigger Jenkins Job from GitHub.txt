@@ -1,0 +1,83 @@
+*******************************************************************************
+
+                ****** Trigger Jenkins Job from GitHub ******
+
+*******************************************************************************
+
+1.  Go to Jenkins dashboard
+2.  New item
+
+3.  --> Enter an item name ==> hsnakd-first-project
+    
+    --> Select --> Freestyle project
+        
+    --> Click --> OK
+
+4.  Job steps:
+    * General
+        --> Description ==> "Test Automation Job for my cucumber project" / Optional
+
+    * Source Code Management 
+        --> Git 
+            --> Repositories 
+                --> Repository URL 
+                    --> Enter GitHub Link ==> https://github.com/vasyafomiuk/demo-project.git 
+
+                    --> NOTE : For private repositories you should put Credentials
+                
+                --> Credentials 
+                    --> if it is public  ==> -none-
+                    --> if it is private --> Select Token
+
+            --> Branches to build
+                --> Branch Specifier (blank for 'any') ==> */master
+
+            --> Repository browser ==> (Auto)
+    
+    * Build Triggers
+        --> Select ==> Build periodically / Optional
+            --> TZ=TZ=Europe/Istanbul
+            --> Enter schedule as cron expression 
+                --> H 5 * * *
+            
+        --> GitHub hook trigger for GITScmpolling            
+
+
+    * Build Environment
+    
+    * Build
+        --> Add build step ==> Invoke top-level Maven targets
+
+            --> Maven Version ==> default / M3
+
+            --> Goals (Enter maven goal that executes your tests)
+                --> test
+
+    * Post-build Actions
+       --> Add post-build action ==> Cucumber reports
+
+      Apply & Save
+
+
+Go to GitHub account
+    --> Select Project --> Settings --> Webhooks --> Add webhook
+        --> Payload URL  ==> http://3.86.235.137:8081/github-webhook/
+                             ( Copy URL from Jenkins ) 
+        --> Content type ==> application/json
+        --> Secret
+        --> Which events would you like to trigger this webhook? ==> Just the push event.
+        --> Check "Active"
+
+Go to IntelliJ
+    --> Commit and Push the Project
+
+Go to Jenkins
+    --> Refresh the page
+
+Configure --> We can able to change settings 
+
+Select the job ==> #1
+
+Select Console Output
+    
+Select Cucumber reports 

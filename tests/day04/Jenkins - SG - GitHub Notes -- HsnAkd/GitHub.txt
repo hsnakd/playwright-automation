@@ -1,0 +1,188 @@
+
+*************************************************************************************
+*																					*
+*									PUSH											*
+*																					*
+*************************************************************************************
+
+	*	Open IntelliJ
+			--> Click "Git" (Left bottom) 
+			--> "Local master" --> Right click --> New branch from 'master' 
+			--> Write a new local branch name (hsnakd)
+			--> Click create
+
+			--> Make some changes while working at local branch (hsnakd)
+			--> Click "Commit"
+			--> Stage files to commit
+				Add changed files from "Unstaged" to "Staged" 
+				(Unstaged --> Right click --> Stage) 
+			--> Write a commit message	
+			--> Click "Commit and Push"
+			--> Click "Push" and check push codes to the GitHub messsage
+
+
+	*	Open GitHub (Without conflict)
+			--> Open the project
+			--> Click "Compare & Pull request"
+			--> Click "Create pull request"
+			--> Click "Merge pull request"
+			--> Click "Confirm merge"
+			--> Click "Delete branch"
+
+
+	*	Open GitHub (Without conflict)
+			--> Open the project
+			--> Click "Pull requests"
+			--> Click "New pull request"
+			-->  
+				==> base : master 		<-- 	compare : hsnakd
+					--> Click "Create pull request"
+					--> Click "Merge pull request"
+					--> Click "Confirm merge"
+					--> Click "Delete branch"
+
+				OR
+
+				==> Click one of the branches for compare (hsnakd)
+					--> Click "View pull request"
+					--> Click "Merge pull request"
+					--> Click "Confirm merge"
+					--> Click "Delete branch"
+
+			--> Click "Merge pull request"
+			--> Click "Confirm merge"
+			--> Click "Delete branch"
+
+
+	*	Open GitHub (With conflict)
+			--> Open the project
+			--> Click "Pull requests"
+			--> Select branch (hsnakd) with conflict
+			--> Click "Resolve conflicts"
+			--> Solve all conflicts and click "Mark as resolved" for each conflicts
+			-->  
+
+*************************************************************************************
+*																					*
+*									git codes										*
+*																					*
+*************************************************************************************
+
+	*	Open IntelliJ
+			--> "Local - master" --> Right click --> Checkout
+			--> Click "Update Project" (Blue arrow)
+			--> Click "OK"
+			--> Check all updated files at Local master
+			--> "Local - branch" (hsnakd) --> Right click --> Checkout
+			--> Click "Git" --> Click "Merge" 
+			--> Click "Merge"
+			--> Check all updated files at Local branch (hsnakd)
+
+
+
+
+*************************************************************************************
+*																					*
+*									UPDATE											*
+*																					*
+*************************************************************************************
+
+
+*	HSN@HSNAKD-MacBook-Air G2S4_AzulCrm % git status
+	
+	On branch master
+	Your branch is up to date with 'origin/master'.
+
+	nothing to commit, working tree clean
+
+
+*	HSN@HSNAKD-MacBook-Air G2S4_AzulCrm % git checkout master
+	Already on 'master'
+	Your branch is up to date with 'origin/master'.
+
+
+*	HSN@HSNAKD-MacBook-Air G2S4_AzulCrm % git pull
+	remote: Enumerating objects: 39, done.
+	remote: Counting objects: 100% (39/39), done.
+	remote: Compressing objects: 100% (9/9), done.
+	remote: Total 25 (delta 9), reused 25 (delta 9), pack-reused 0
+	Unpacking objects: 100% (25/25), 4.40 KiB | 24.00 KiB/s, done.
+	From https://github.com/hsnakd/G2S4_AzulCrm
+	 * [new branch]      Zilale_US1535 -> origin/Zilale_US1535
+	Already up to date.
+
+
+*	HSN@HSNAKD-MacBook-Air G2S4_AzulCrm % git checkout  Zilale_US1535
+	Branch 'Zilale_US1535' set up to track remote branch 'Zilale_US1535' from 'origin'.
+	Switched to a new branch 'Zilale_US1535'
+
+
+*	HSN@HSNAKD-MacBook-Air G2S4_AzulCrm % git pull
+	Already up to date.
+
+
+*	HSN@HSNAKD-MacBook-Air G2S4_AzulCrm % git checkout master
+	Switched to branch 'master'
+	Your branch is up to date with 'origin/master'.
+
+
+*	HSN@HSNAKD-MacBook-Air G2S4_AzulCrm % git pull           
+	Already up to date.
+
+
+*	HSN@HSNAKD-MacBook-Air G2S4_AzulCrm % git checkout Zilale_US1535 
+	Switched to branch 'Zilale_US1535'
+	Your branch is up to date with 'origin/Zilale_US1535'.
+
+
+*	HSN@HSNAKD-MacBook-Air G2S4_AzulCrm % git pull                 
+	Already up to date.
+
+
+*	HSN@HSNAKD-MacBook-Air G2S4_AzulCrm % git merge master           
+	Auto-merging src/test/resources/features/Zilale_US1535_FilterAndSearchFunction.feature
+	
+	CONFLICT (content): Merge conflict in src/test/resources/features/Zilale_US1535_FilterAndSearchFunction.feature
+	Removing src/test/resources/features/Nuri_US1533_PollTask.feature
+	Removing src/test/resources/features/LoginFunction.feature
+	Removing src/test/resources/features/Hasan_US1537_QuickNavigateTask.feature
+	Removing src/test/resources/features/Halil_US1536_sendingMessage.feature
+	Auto-merging src/test/java/com/cydeo/step_definitions/Zilale_US1535_FilterAndSearch.java
+	
+	CONFLICT (content): Merge conflict in src/test/java/com/cydeo/step_definitions/Zilale_US1535_FilterAndSearch.java
+	
+	CONFLICT (add/add): Merge conflict in src/test/java/com/cydeo/pages/Zilale_US1535_FilterAndSearchPage.java
+	Auto-merging src/test/java/com/cydeo/pages/Zilale_US1535_FilterAndSearchPage.java
+	Automatic merge failed; fix conflicts and then commit the result.
+	
+
+*	HSN@HSNAKD-MacBook-Air G2S4_AzulCrm % git merge master
+	fatal: You have not concluded your merge (MERGE_HEAD exists).
+	Please, commit your changes before you merge.
+	
+
+*	HSN@HSNAKD-MacBook-Air G2S4_AzulCrm %
+
+
+
+*************************************************************************************
+*																					*
+*									GitHub Shelves									*
+*																					*
+*************************************************************************************
+
+https://www.jetbrains.com/help/idea/work-on-several-features-simultaneously.html#shelve
+
+
+
+
+
+
+*************************************************************************************
+*																					*
+*									GitHub Review									*
+*																					*
+*************************************************************************************
+
+
+

@@ -1,0 +1,365 @@
+*********************************************************************************
+*																			 	*
+*				****** How to Create Selenium Grid Server ******				*
+*																				*
+*********************************************************************************
+
+
+1. Open AWS account
+2. Open EC2 Console --> https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#Home:
+3. Click --> Launch Instance --> Launch Instance
+
+	--> Name ==> hsnakd-selenium-grid-server (Give a name)
+
+	--> Application and OS Images (Amazon Machine Image)
+		--> Click ==> Amazon Linux aws (It's already selected)
+
+	--> Instance type t2.micro (It's already selected)	
+
+	--> Key pair (login) 
+		--> Just this keep this step. After we click into lunch instance, we will handle.
+
+	--> Netwok settings ==> Edit
+		--> Security group name - required ==> hsnakd-Grid-SG
+		--> Description - required ==> hsnakd-SG-4444
+
+	--> Add security group rule
+		--> Port range ==> 4444
+		--> Source type ==> Anywhere
+		--> Description - optional ==> hsnakd-Selenium Grid
+
+	--> Configure storage
+
+	--> Advanced details --> User data ( It will up server. It will install docker and it will download file with the Selenium Grid setup and that we're going to active once we login and we'll create a grid server)
+		==> 
+		#!/bin/bash
+		sudo yum update -y && 
+		sudo amazon-linux-extras install -y docker && 
+		sudo service docker start && 
+		sudo usermod -a -G docker ec2-user && 
+		sudo chkconfig docker on && 
+		sudo yum install -y git && 
+		sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose &&
+		sudo chmod +x /usr/local/bin/docker-compose && 
+		docker-compose version && 
+		sudo curl -L https://cybertek-shared.s3.amazonaws.com/docker-compose.yml -o /home/ec2-user/docker-compose.yml && 
+		sudo reboot
+
+--> Launch Instance
+
+--> Key pair name 
+	--> Create key pair 
+		--> Key pair name ==> hsnakd-seleniumgridserver
+		--> Key pair type ==> RSA
+		--> Private key file format ==> .pem
+		--> Create new key pair
+
+--> .pem file downloaded  automatically and dont delete
+
+--> Launch instance
+
+--> Check ==> Success
+
+--> Click ==> View all instaces 
+			  --> Refresh the page
+
+--> Wait for initializing --> 2/2 checks passed
+
+
+
+*********************************************************************************
+*																				*
+*				****** How to Connect Selenium Grid Server ******				*
+*																				*
+*********************************************************************************
+
+
+--> Open AWS account --> Open EC2 Console 
+
+--> Select HsnAkd-Selenium-Grid-Server
+
+--> Click Connect
+
+--> Click EC2 Instance Connect (browser-based SSH connection)
+
+--> Write a user name ==> ec2-user
+
+--> Click Connect	
+
+--> Write "ls" and hit the enter (ls ==> list directory)
+
+--> Check "docker-compose.yml"
+
+--> Write "docker-compose up -d" and hit the enter
+
+		https://aws.amazon.com/amazon-linux-2/
+		[ec2-user@ip-172-31-83-198 ~]$ ls
+		docker-compose.yml
+		[ec2-user@ip-172-31-83-198 ~]$ docker-compose up -d
+
+		[+] Running 3/3
+		 ⠿ Network ec2-user_default     Created         0.1s
+		 ⠿ Container ec2-user-hub-1     Started         1.3s
+		 ⠿ Container ec2-user-chrome-1  Started         1.4s
+
+--> Copy "Public IPs :" ==> 184.72.110.69
+
+--> Open in browser ==> "http://184.72.110.69:4444" hit the enter
+
+--> Click "console" link
+
+	--> http://3.83.105.72:4444/grid/console
+
+
+--> Open Intellij --> Driver --> remote-chrome
+	--> String gridAddress = "184.72.110.69";
+
+--> Open configuration.properties ==> browser=remote-chrome
+
+--> Open CukesRunner and Run it
+
+--> Open "https://us-east-1.console.aws.amazon.com/ec2-instance-connect/ssh?connType=standard&instanceId=i-03c034a5a1c0463a8&osUser=ec2-user&region=us-east-1&sshPort=22#/"
+
+
+--> After running than close selenium grid
+	==> docker-compose down   and hit the enter
+
+
+
+		[ec2-user@ip-172-31-83-198 ~]$ docker-compose down
+		[+] Running 3/3
+		 ⠿ Container ec2-user-chrome-1  Removed         3.9s
+		 ⠿ Container ec2-user-hub-1     Removed         2.2s
+		 ⠿ Network ec2-user_default     Removed         0.1s
+		[ec2-user@ip-172-31-83-198 ~]$ 
+
+*********************************************************************************
+*																				*
+*				****** Jenkins with Selenium Grid ******						*
+*																				*
+*********************************************************************************
+
+--> Open Instance Page
+
+--> Select hsnakd-selenium-grid-server
+
+--> Click Connect
+
+--> Click EC2 Instance Connect
+
+--> Click Connect	
+
+--> Write "ls" and hit the enter
+
+--> Check "docker-compose.yml"
+
+--> Write "docker-compose up -d" and hit the enter
+
+		https://aws.amazon.com/amazon-linux-2/
+		[ec2-user@ip-172-31-83-198 ~]$ ls
+		docker-compose.yml
+		[ec2-user@ip-172-31-91-167 ~]$ docker-compose up -d
+		[+] Running 3/3
+		 ⠿ Network ec2-user_default     Created    0.0s
+		 ⠿ Container ec2-user-hub-1     Started    0.5s
+		 ⠿ Container ec2-user-chrome-1  Started    1.0s
+		[ec2-user@ip-172-31-91-167 ~]$ 
+
+
+--> Copy "Public IPs :" ==> 184.72.110.69
+
+--> Open in browser ==> "http://184.72.110.69:4444" hit the enter
+
+--> Click "console" link 
+
+--> Open Intellij --> Driver --> remote-chrome
+	--> String gridAddress = "184.72.110.69";
+
+--> Push your code to the GitHub
+
+
+1.  Go to Jenkins dashboard
+2.  New item
+
+3.  --> Enter an item name ==> hsnakd-project-jenkins-with-grid
+    
+    --> Select --> Freestyle project
+        
+    --> Click --> OK
+
+4.  Job steps:
+    * General
+        --> Description ==> "Test Automation Job for my cucumber project" / Optional
+
+    * Source Code Management 
+        --> Git 
+            --> Repositories 
+                --> Repository URL 
+                    --> Enter GitHub Link ==> https://github.com/vasyafomiuk/demo-project.git 
+
+                    --> NOTE : For private repositories you should put Credentials
+                
+                --> Credentials 
+                    --> if it is public  ==> -none-
+
+                    --> if it is private --> Select Token
+	
+	* Build
+        --> Add build step ==> Invoke top-level Maven targets
+
+            --> Maven Version ==> default / M3
+
+            --> Goals ==> test -Dcucumber.filter.tags=@smoke -DBROWSER=remote-chrome
+
+
+    * Post-build Actions
+       --> Add post-build action ==> Cucumber reports                    
+
+* Attachments
+   ==> **/target/cucumber.json, **/target/cucumber-reports.html
+
+==> Apply & Save
+
+
+		
+--> Build Now
+
+--> Open Selenium Grid Console page
+
+--> To stop it
+	--> Write "docker-compose down" and hit the enter
+
+			[ec2-user@ip-172-31-91-167 ~]$ docker-compose down
+			[+] Running 3/3
+			 ⠿ Container ec2-user-chrome-1  Removed        2.3s
+			 ⠿ Container ec2-user-hub-1     Removed        2.2s
+			 ⠿ Network ec2-user_default     Removed        0.0s
+			[ec2-user@ip-172-31-91-167 ~]$ 
+
+
+*********************************************************************************
+*																				*
+*							****** GMAIL ******									*
+*																				*
+*********************************************************************************
+
+--> Click Add post-build action
+--> Select Editable Email Notification
+--> Put emails into Recipient List
+--> Content Type needs to be HTML(text/html)
+
+-->	Click Advance Settings
+	--> Click Add Trigger 
+		--> Select "Always"
+--> Save
+
+*********************************************************************************
+*																				*
+*							****** NOTES ******									*
+*																				*
+*********************************************************************************
+
+* use "Control + C" to stop everything
+- use tab button to auto complete file name
+- cat d (clicking tab) --> docker-compose.yml
+- use arrow up /|\ and arrow down \|/ to navigate through the history of commands.
+- use delete or backspace buttons to delete commands or what do you type
+- clear --> to delete previous output
+- Hit enter to activate command
+- Command Line ==> It is an interface for communication with a computer.
+  Regular user only face UI as an interface for communicatin
+  But servers dont have a UI therefore we have use command line.
+  Mac and Windows also have a command line peo users use it as well.
+- if you see the error "command not found" it means user data wasnt specified properly and docker wasnt installed
+	
+	--> How to fix it
+	   	- Go to EC2 console
+	   	- Select server --> Right click --> Select "Instance State --> Stop"
+		- Select server --> Click "Actions" --> Select "Instance Settings --> View/Change User Data"   
+		  Select server --> Right click --> Select "Instance Settings --> View/Change User Data"
+		- Replace User Data 
+		- Select server --> Right click --> Select "Instance State --> Start"
+		- Wait around 15 minutes 
+		- Connect again
+
+	--> How to terminate it
+		- Select server --> Right click --> Select "Instance State --> Terminate"
+
+	--> How to check that containers are running?
+		- docker ps
+
+	--> This website not reachable
+		- Docker is not running
+		- Port 444 is not opened on AWS EC2 Console for this server
+
+
+Q: Could there be any situation where test passes on our local browser, but fails on server??
+
+A: yes, especially if remote server is linux-based and local is windows. 
+
+ - Screen resolution (scroll to element before interaction)
+ - Synchronization (add more waits)
+ - path to downloaded content (specify path in ChromeOptions/FirefoxOptions)
+
+
+Q: Tell me about your selenium grid setup.
+	A: My selenium grid consists of 10 (5 - 100) nodes and hub. We are using One AWS EC2 instance with Docker to run Selenium Grid. Mostly, we are doing testing only on the Chrome browser. 
+
+    1 container = 1 node = 1 browser = 1 test at the time
+
+    10 nodes = 10 browsers = 10 execution tests at the time 
+
+
+Details: every node is running inside a container along with a browser. 
+
+1 node supports execution of 1 test at the time. 
+
+
+### This is stuff is for DEVOPS.
+
+    Q: How to increase number on nodes in Selenium Grid with Docker?
+
+    A: run command on the server that is running grid.
+
+        docker-compose up -d --scale chrome=num
+
+        *where num is desirable number of chrome nodes. By default it's one.
+        *where chrome is a service name
+
+    Q: How to start selenium grid with docker?
+
+    A: run command on the server that is running grid:
+
+        docker-compose up -d
+
+    Q: How to STOP selenium grid with docker?
+
+    A: run command on the server that is running grid:
+
+        docker-compose down
+
+    Q: Docker compose ? How it is related to docker? 
+
+    A: Docker compose helps to launch group of containers all together. Inside a file (docker-compose.yml) we specify which containers we want to launch. 
+
+    Q: How to turn off specific node (with docker containers)
+
+    A: run command on the server that is running grid: 
+        docker container kill <container id>
+
+    Q: How to see container id and what are the containers currently running?
+    A: run command on the server that is running grid:
+
+        docker container ps
+
+        first column is for container id. 
+
+### This is stuff is for DEVOPS.
+
+Q: Can I know about this as a tester? 
+A: Yes, but not required.
+
+
+
+
+You have been redirected to the latest browser-based EC2 Instance Connect experience. Please update your bookmark to this URL. The redirect from the old bookmark will not be supported in the near future.

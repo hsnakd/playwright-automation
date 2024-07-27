@@ -1,0 +1,75 @@
+*********************************************************************************************
+*                                                                                           *
+*                   ****** Create smoke // regression test job *****                        *
+*                                                                                           *
+*********************************************************************************************             
+
+1.  Go to Jenkins dashboard
+2.  New item
+
+3.  --> Enter an item name 
+
+        name @smoke   --> smoke-test
+        name @regression --> regression-test-suite
+    
+    --> Select --> Freestyle project
+        
+    --> Click --> OK
+
+4.  Job steps:
+    * General
+        --> Description ==> "Test Automation Job for my cucumber project" / Optional
+
+    * Source Code Management 
+        --> Git 
+            --> Repositories 
+                --> Repository URL 
+                    --> Enter GitHub Link ==> https://github.com/vasyafomiuk/demo-project.git 
+                
+                --> Credentials ==> -none-
+
+            --> Branches to build
+                --> Branch Specifier (blank for 'any') ==> */master
+
+            --> Repository browser ==> (Auto)
+    
+    * Build Triggers
+
+    * Build Environment
+    
+    * Build
+        --> Add build step ==> Invoke top-level Maven targets
+
+            --> Maven Version ==> default / M3
+
+            --> Goals 
+                --> @smoke  ==>   test -Dcucumber.filter.tags="@smoke"
+                --> @regression ==>  test -Dcucumber.filter.tags="@regression"
+                
+                --> To use multiple tags: 
+                    --> test -Dcucumber.filter.tags="@smoke or @sanity"
+                    --> test -Dcucumber.filter.tags="@regression or @sanity"
+                    --> test -Dcucumber.filter.tags="@regression and @user_profile"
+
+                    (NOTE: make sure that test scenarios are annotated in your framework before using this tag.)
+
+    * Post-build Actions
+        --> Add post-build action ==> Cucumber reports
+
+    * Attachments
+        ==> **/target/cucumber.json, **/target/cucumber-reports.html
+
+
+      Apply & Save
+
+
+Build Now
+
+Configure --> We can able to change settings 
+
+
+Select the job ==> #1
+
+Select Console Output
+    
+    Select Cucumber reports

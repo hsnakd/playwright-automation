@@ -1,0 +1,174 @@
+*********************************************************************************
+*                                                                               *
+*               ****** Create my first test job ******                          *
+*                                                                               *
+*********************************************************************************
+
+1.  Go to Jenkins dashboard
+2.  New item
+
+3.  --> Enter an item name ==> hsnakd-first-project
+    
+    --> Select --> Freestyle project
+        
+    --> Click --> OK
+
+4.  Job steps:
+    * General
+        --> Description ==> "Test Automation Job for my cucumber project" / Optional
+
+    * Source Code Management 
+        --> Git 
+            --> Repositories 
+                --> Repository URL 
+                    --> Enter GitHub Link ==> https://github.com/vasyafomiuk/demo-project.git 
+
+                    --> NOTE : For private repositories you should put Credentials
+                
+                --> Credentials 
+                    --> if it is public  ==> -none-
+
+                    --> if it is private --> Select Token
+                    --> if it is private & Havent add it yet
+                        --> add --> Jenkins 
+                            --> Domain  ==> Global cedentials (unrestricted)
+                            --> Kind    ==> Username with password
+                                --> Scope       ==> Global(Jenkins, nodes, items, all child itmes, etc)
+                                --> Username    ==> Enter GitHub Username
+                                --> Password    ==> Enter GitHub Token --> Enter
+                                                ==> Select GitHub Tokenoken 
+                                --> ID          ==> Enter a description 
+                                --> Description ==> Enter a description
+                    --> Add            
+                    --> GitHub Token  
+                        --> Go to GitHub account --> Settings --> Developer setting --> Personal access tokens --> Generate new token 
+                        --> Enter Password --> Note ==> Give a name 
+                        --> Check "repo" and "user"(check the needed items)           
+                        --> Enter "Generate Token" --> Copy Token
+
+            --> Branches to build
+                --> Branch Specifier (blank for 'any') ==> */master
+
+            --> Repository browser ==> (Auto)
+    
+    * Build Triggers
+        --> Select ==> Build periodically  / Optional
+
+            --> TZ=EST
+            --> TZ=TZ=Europe/Istanbul
+
+
+            --> Enter schedule as cron expression 
+                --> H 5 * * *       -->      
+                H - allows jenkins to distribute load evenly. Let's say there 5 job execution scheduled at 5am. To improve performance, we can say that execute those 5 jobs around 5 am as per convenience. 
+                --> The H symbol can be used with a range. For example, H H(0-7) * * * means some time between 12:00 AM (midnight) to 7:59 AM. You can also use step intervals with H, with or without ranges.
+
+                --> * * * * *       --> "At every minute"
+                --> 5 4 * * *       --> “At 04:05.”
+                --> 3 19 3 5 1      --> “At 19:03 on day-of-month 3 and on Monday in May.”
+                --> 0 22 * * 1-5    --> “At 22:00 on every day-of-week from Monday through Friday.”
+                --> 0 0,12 1 */2 *  --> “At minute 0 past hour 0 and 12 on day-of-month 1 in every 2nd month.”    
+                --> 0 4 8-14 * *    --> “At 04:00 on every day-of-month from 8 through 14.”
+                --> H(0-7) * * *    </code> means some time between 12:00 AM (midnight) to 7:59 AM.
+
+                --> H MINUTE    Minutes within the hour (0–59)
+                --> 5 HOUR      The hour of the day (0–23)
+                --> * DOM       The day of the month (1–31)
+                --> * MONTH     The month (1–12) (January-...-December)
+                --> * DOW       The day of the week (0–7) (0 is Sunday and 6 is Saturday)
+
+            https://crontab.guru/ 
+
+
+    Asterisk    --> *               specifies all valid values / any value
+                E.g., using an asterisk in the 4th field (month) indicates every month.
+
+                --> M-N             specifies a range of values
+                --> M-N/X or */X    steps by intervals of X through the specified range or whole valid range
+                --> A,B,...,Z       enumerates multiple values
+
+    Comma       --> ,   ==> value list separator / used to separate items of a list. 
+                        For example, using “MON,WED,FRI” in the 5th field (day of week) means Mondays, Wednesdays and Fridays.
+
+    Hyphen      --> -   ==> range of values / Hyphens define ranges. 
+                        For example, 2000-2010 indicates every year between 2000 and 2010 AD, inclusive.
+
+    Slash       --> /   ==> step values / describe increments of ranges. 
+                        For example 3-59/15 in the 1st field (minutes) indicate the third minute of the hour and every 15 minutes thereafter. The form “*/…” is equivalent to the form “first-last/…”, that is, an increment over the largest possible range of the field.
+
+    Percent     --> %   ==> Percent-signs (%) in the command, unless escaped with backslash (\), are changed into newline characters, and all data after the first % are sent to the command as standard input.            
+ 
+
+
+    * Build Environment
+    
+    * Build
+        --> Add build step ==> Invoke top-level Maven targets
+
+            --> Maven Version ==> default / M3
+
+            --> Goals (Enter maven goal that executes your tests)
+                --> test
+                --> @smoke  ==>   test -Dcucumber.filter.tags="@smoke"
+                --> @regression ==>  test -Dcucumber.filter.tags="@regression"
+                
+                --> To use multiple tags: 
+                    --> test -Dcucumber.filter.tags="@smoke or @sanity"
+                    --> test -Dcucumber.filter.tags="@regression or @sanity"
+                    --> test -Dcucumber.filter.tags="@regression and @user_profile"
+
+                    (NOTE: make sure that test scenarios are annotated in your framework before using this tag.)
+
+    * Post-build Actions
+       --> Add post-build action ==> Cucumber reports
+
+*********************************************************************************
+*                                                                               *
+*                           ****** GMAIL ******                                 *
+*                                                                               *
+*********************************************************************************
+--> Check "CI-CD Jenkins 2022.pdf / page : 61-75"
+--> Click Add post-build action
+--> Select Editable Email Notification
+--> Put emails into Recipient List
+--> Content Type needs to be HTML(text/html)
+
+--> Click Advance Settings
+    --> Click Add Trigger 
+        --> Select "Always"
+
+*********************************************************************************
+*                                                                               *
+*                            ****** DISCORD ******                              *
+*                                                                               *
+*********************************************************************************
+--> Check "CI-CD Jenkins 2022.pdf / page : 58-61"
+--> Click Add post-build action
+    --> Choose Discord Notifier
+
+--> Take Webhook from Discord Channel
+    --> Add a Server --> Create My Own
+    --> Select a channel
+        --> Settings
+            --> Integrations
+                --> Wevhooks
+                    --> New Webhook
+                        --> Give a name and Click "Save Changes"  
+    
+--> Paste Webhook URL field
+
+* Attachments
+   ==> **/target/cucumber.json, **/target/cucumber-reports.html
+
+==> Apply & Save
+
+
+--> Build Now
+
+Configure --> We can able to change settings 
+
+Select the job ==> #1
+
+Select Console Output
+    
+Select Cucumber reports

@@ -1,0 +1,82 @@
+*******************************************************************************
+
+                ****** Create Pipeline test job ******
+
+*******************************************************************************
+
+
+1.  Go to Jenkins dashboard
+2.  New item
+
+3.  --> Enter an item name ==> pipeline-example
+    
+    --> Select --> Pipeline
+        
+    --> Click --> OK
+
+4.  Job steps:
+    * General
+        --> Description ==> "Test Automation Job for my cucumber project" / Optional
+
+    
+    * Build Triggers
+
+    * Advanced Project Options
+    
+    * Pipeline
+        --> Definitions
+            --> Pipeline script
+                --> Script 
+                    ==> Hello World
+                    ==> GitHub + Maven
+                    ==> Scripted Pipeline 
+                    
+                    ==> try sample Pipeline...
+
+node {
+    stage('Clone code') {
+        git 'https://github.com/vasyafomiuk/demo-project.git'
+    }
+        
+    stage('Run tests'){
+        if(isUnix()){
+            sh "mvn clean test"
+        } else {
+            bat "mvn clean test"
+        }
+    }
+        
+    stage('Generate report'){
+           cucumber failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: '**/*.json', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
+    }
+}
+
+        --> Check Use Groovy Sandbox
+
+      Apply & Save
+
+
+Build Now
+
+
+Pipeline Syntax 
+    --> Steps
+        --> Sample Step 
+            --> archiveArtifacts: Archive the artifacts
+            --> Click ==> Generate Pipeline Script 
+                      ==> archiveArtifacts artifacts: '', followSymlinks: false    
+
+            --> cucumber: Cucumber reports
+            --> Click ==> Generate Pipeline Script 
+                      ==> cucumber buildStatus: 'null', customCssFiles: '', customJsFiles: '', failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: '**/*.json', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1 
+
+
+
+Configure --> We can able to change settings  
+
+Select the job ==> #1
+
+Select Console Output
+    
+    Pipeline Steps
+    Select Cucumber reports

@@ -1,0 +1,20 @@
+ls
+docker-compose up -d
+docker-compose down
+
+docker-compose up --scale chrome=4 -d (chrome= x  x==> number of chrome node)
+
+
+
+GitHub:
+https://github.com/hsnakd/CucumberProjectHsnAkd.git
+
+MAVEN:
+test -DBROWSER="remote-chrome" -Dcucumber.filter.tags="@smoke"
+mvn test -Denvironment="qa" -DBROWSER="chrome" -DclassName=DataTable_StepDefinitions
+
+Gmail: 
+hsnakd11@gmail.com
+
+Discord:
+https://discord.com/api/webhooks/1031758179362684948/NIG3H6uH2ipVQEF7a9NQEYMiqMfqYOXDom1FJ_qL4mT0lVFFN5a_drpzTrnmhycOcADl

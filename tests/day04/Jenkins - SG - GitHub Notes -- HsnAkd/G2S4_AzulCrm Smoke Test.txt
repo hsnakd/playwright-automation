@@ -1,0 +1,88 @@
+
+***********************************************************************************
+*                                                                                 *
+*                   ****** Create smoke // regression test jo                     *
+*                                                                                 *
+***********************************************************************************             
+
+1.  Go to the Jenkins dashboard
+2.  New item
+
+3.  --> Enter an item name 
+
+        name @smoke   --> smoke-test
+        name @regression --> regression-test-suite
+    
+    --> Select --> Freestyle project
+        
+    --> Click --> OK
+
+4.  Job steps:
+    * General
+        --> Description ==> "Test Automation Job for my cucumber project" / Optional
+
+    * Source Code Management 
+        --> Git 
+            --> Repositories 
+                --> Repository URL 
+                    --> Enter GitHub Link ==> https://github.com/hsnakd/G2S4_AzulCrm.git 
+                
+                --> Credentials ==> -none-
+
+            --> Branches to build
+                --> Branch Specifier (blank for 'any') ==> */master
+
+            --> Repository browser ==> (Auto)
+
+    * Build Triggers
+        --> Select ==> Build periodically 
+
+
+            --> Enter schedule as cron expression 
+                --> H 3 * * *       --> Everyday 06.00am (Local Time)    
+
+
+    * Build Environment
+    
+    * Build
+        --> Add build step ==> Invoke top-level Maven targets
+
+            --> Maven Version ==> default / M3
+
+            --> Goals 
+                --> @smoke  ==>   test -Dcucumber.filter.tags="@smoke"
+                --> @regression ==>  test -Dcucumber.filter.tags="@regression"
+
+
+
+    * Post-build Actions (For Gmail Notification)
+
+		--> Click Add post-build action
+		--> Select Editable Email Notification
+		--> Put emails into "Project Recipient List"
+		--> Content Type needs to be HTML(text/html)
+
+		--> Click Advance Settings
+		    --> Click Add Trigger 
+		        --> Select "Always"
+
+
+
+
+    * Post-build Actions
+       --> Add post-build action ==> Cucumber reports
+
+      Apply & Save
+
+
+Build Now
+
+
+Select the job ==> #1
+
+Select Console Output
+    
+    Select Cucumber reports
+
+
+
