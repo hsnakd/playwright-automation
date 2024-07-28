@@ -1,0 +1,14 @@
+• HTML elements for displaying data in rows and columns.
+
+• HTML Table Structure:
+    ■ Table tag: <table>
+    ■ Header: <thead>, <th>
+    ■ Body: <tbody>, <tr>, <td>
+        tr : table rows
+        td : table columns
+    ■ Footer: <tfoot>
+
+• Extracting Data from Tables:
+    ■ Getting all rows: table.locator(‘tr’)
+    ■ Getting cells in a row: row.locator(‘td’)
+    ■ Extracting text: cell.textContent()

@@ -1,6 +1,5 @@
 import { test, expect } from "@playwright/test";
 
-//create a test group with 3 tests in it
 test.describe("Mouse Actions", async () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("https://practice.cydeo.com/");
@@ -57,6 +56,63 @@ test.describe("Mouse Actions", async () => {
       await page.waitForTimeout(2000);
       await each_element.hover();
     }
+  });
+
+  test("Drag and Drop test", async ({ page }) => {
+    await page.click("text='Drag and Drop'");
+
+
+    const draggableElement0 = page.locator("//div[@class='column' and @draggable='true']");
+    for (let i = 0; i < await draggableElement0.count(); i++) {
+      const text = await draggableElement0.nth(i).innerText();
+      console.log(text);
+    }
+
+    await page.waitForTimeout(1000);
+
+    // dragAndDrop
+    // simulating mouse action: drag and drop
+    page.dragAndDrop("//div[@id='column-a']", "//div[@id='column-b']");
+
+    await page.waitForTimeout(1000);
+
+    const draggableElement1 = page.locator("//div[@class='column' and @draggable='true']");
+    for (let i = 0; i < await draggableElement1.count(); i++) {
+      const text = await draggableElement1.nth(i).innerText();
+      console.log(text);
+    }
+
+
+    // dragTo
+    // drag and drop is performed on web elements directly
+    const source_element = page.locator("//div[@id='column-a']");
+    const target_element = page.locator("//div[@id='column-b']");
+    source_element.dragTo(target_element);
+    await page.waitForTimeout(1000);
+
+    const draggableElement = page.locator("//div[@class='column' and @draggable='true']");
+
+    for (let i = 0; i < await draggableElement.count(); i++) {
+      const text = await draggableElement.nth(i).innerText();
+      console.log(text);
+    }
+  });
+
+
+  test("Mouse Wheel Scrolling Test", async ({ page }) => {
+    await page.waitForTimeout(1000);
+    await page.mouse.wheel(0, 500);
+  
+    await page.waitForTimeout(1000);
+    await page.mouse.wheel(0, -500);
+  });
+  
+  test("Different Scrolling Test", async ({ page }) => {
+    await page.waitForTimeout(1000);
+    const inputLink = page.locator("text='Inputs'");
+    await inputLink.scrollIntoViewIfNeeded(true);
+
+    await page.waitForTimeout(1000);
   });
 
 
