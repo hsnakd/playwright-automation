@@ -102,7 +102,7 @@
 
     * Build Environment
     
-    * Build
+    * Build Steps
         --> Add build step ==> Invoke top-level Maven targets
 
             --> Maven Version ==> default / M3

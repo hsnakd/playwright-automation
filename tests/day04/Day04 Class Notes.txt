@@ -1,0 +1,30 @@
+Playwright Day04
+    Mouse Actions: click, right click, double click, hover, drag and drop, scroll
+    Web Tables
+    Web Based Authentication
+    File upload & downloads
+    Tags
+    Jenkins Setup
+
+
+
+Next Class:
+    Multi-window Handlings
+    Context & browser Fixture
+    Jenkins:
+        Creating jobs
+        Publishing Report
+        .env setup
+
+
+Next Saturday' Class:
+    Project Implementation: 2 ~ 3 hours recording classes
+
+Next Monday' Class:
+    Playwright Cucumber review (JS version)
+
+Additional Class (Optional):
+    Next Next Saturday:
+        TypeScript Programming
+        Playwright with TypeScript
+        Playwright Cucumber (TS version)
