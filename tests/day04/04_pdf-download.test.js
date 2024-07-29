@@ -6,7 +6,7 @@ import { request } from 'https';
 test.describe('PDF Download Test', () => {
   test('Save the PDF file that\'s downloaded', async ({ page }) => {
     // Create a download directory if it doesn't exist
-    const downloadDir = path.join(__dirname, 'pdf-download');
+    const downloadDir = path.join(__dirname, 'downloads');
     if (!fs.existsSync(downloadDir)) {
       fs.mkdirSync(downloadDir);
     }
