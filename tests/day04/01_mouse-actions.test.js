@@ -5,7 +5,7 @@ test.describe("Mouse Actions", async () => {
     await page.goto("https://practice.cydeo.com/");
   });
 
-  // after reach, pause the automation for 2 seconds
+  // after each, pause the automation for 2 seconds
   test.afterEach(async ({ page }) => {
     await page.waitForTimeout(2000);
   });
