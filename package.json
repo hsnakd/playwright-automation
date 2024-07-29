@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "tests": "playwright test",
-    "test:specific": "playwright test ./tests/day02/playwright-with-ai.test.js",
-    "report": "playwright show-report",
+    "tests": "npx playwright test", 
+    "test:specific": "npx playwright test ./tests/day02/playwright-with-ai.test.js",
+    "test:smoke": "npx playwright test --grep @smoke",
+    "test:regression": "npx playwright test --grep @regression",
+    "report": "npx playwright show-report",
     "open": "npx playwright open"
   },
   "keywords": [],
