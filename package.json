@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "tests": "npx playwright test", 
+    "tests": "npx playwright test",
     "test:specific": "npx playwright test ./tests/day02/playwright-with-ai.test.js",
     "test:smoke": "npx playwright test --grep @smoke",
     "test:regression": "npx playwright test --grep @regression",
@@ -19,6 +19,7 @@
     "@types/node": "^20.14.10"
   },
   "dependencies": {
+    "content-disposition": "^0.5.4",
     "dotenv": "^16.4.5"
   }
 }

@@ -75,32 +75,58 @@ test.describe("File upload and download", async () => {
 
   });
 
-  
-  
   test("Save the file that's downloaded", async ({ page }) => {
+
+    const downloadPromise = page.waitForEvent("download"); // promise is created: pending promise
+
+    await page.click("text='File Download'"); 
+
+    expect(page.url()).toBe("https://practice.cydeo.com/download");
+
+    page.click("//a[@href='download/Sesson3.txt']"); // click the file to download
+
+    const download = await downloadPromise; // promise is either full filled or rejected
+
+    expect(download.suggestedFilename()).toBe("Sesson3.txt");
+
+
+    //   save the  downloaded file: 
+    const downloadPath= path.join(__dirname, "download", download.suggestedFilename() );
+    await download.saveAs(downloadPath);
+
+
+  });
+
+  test("Save the file that's downloaded 2", async ({ page }) => {
     // Create a download directory if it doesn't exist
     const downloadDir = path.join(__dirname, 'download');
     if (!fs.existsSync(downloadDir)) {
       fs.mkdirSync(downloadDir);
     }
 
-    // setting listener for download event
-    const downloadPromise = page.waitForEvent("download"); // promise is created: pending promise
+    // Set listener for download event
+    const downloadPromise = page.waitForEvent('download');
 
-    await page.click("text='File Download'");
-    expect(page.url()).toBe("https://practice.cydeo.com/download");
+    // Trigger file download
+    await page.click('text="File Download"');
+    expect(page.url()).toBe('https://practice.cydeo.com/download');
 
-    page.click("//a[@href='download/Sesson3.txt']");
+    await page.click("//a[@href='download/Sesson3.txt']");
 
-    const download = await downloadPromise; // promise is either full filled or rejected
-    expect(download.suggestedFilename()).toBe("Sesson3.txt");
+    // Wait for the download to complete
+    const download = await downloadPromise;
 
-    // save the file to the downloads folder
-    // if the file already exists then it will be overwritten with the new file
-    const downloadPath = path.join(__dirname, "download", download.suggestedFilename());
+    // Get the suggested filename
+    const suggestedFilename = download.suggestedFilename();
+    expect(suggestedFilename).toBe('Sesson3.txt');
+
+    // Save the file to the downloads folder
+    const downloadPath = path.join(downloadDir, suggestedFilename);
     await download.saveAs(downloadPath);
-  });
 
+    // Optionally, you can add further assertions or checks here
+    expect(fs.existsSync(downloadPath)).toBe(true);
+  });
 
   
 });
