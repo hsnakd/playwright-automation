@@ -1,0 +1,148 @@
+*********************************************************************************
+*                                                                               *
+*               ****** Create my first test job ******                          *
+*                                                                               *
+*********************************************************************************
+
+1.  Go to Jenkins dashboard
+2.  New item
+
+3.  --> Enter an item name ==>  first-jenkins-project
+                           ==>  playwright-automation
+    
+    --> Select --> Freestyle project
+        
+    --> Click --> OK
+
+4.  Job steps:
+    * General
+        --> Description ==> (Optional) "Test Automation Job for my cucumber project"
+
+    * Source Code Management 
+        --> Git 
+            --> Repositories 
+                --> Repository URL 
+                    --> Enter GitHub Link 
+                        ==> https://github.com/MuhtarMahmut/first-jenkins-project.git 
+                        ==> https://github.com/CYDEO-Javascript-Playwright/playwright-automation.git
+
+                    --> NOTE : For private repositories you should put Credentials
+                
+                --> Credentials 
+                    --> if it is public  ==> -none-
+
+                    --> if it is private --> Select Token
+                    --> if it is private & Haven't add it yet
+                        --> add --> Jenkins 
+                            --> Domain  ==> Global credentials (unrestricted)
+                            --> Kind    ==> Username with password
+                                --> Scope       ==> Global(Jenkins, nodes, items, all child items, etc)
+                                --> Username    ==> Enter GitHub Username
+                                --> Password    ==> Enter GitHub Token --> Enter
+                                                ==> Select GitHub Token
+                                --> ID          ==> Enter a description 
+                                --> Description ==> Enter a description
+                    --> Add            
+                    --> GitHub Token  
+                        --> Go to GitHub account --> Settings --> Developer setting --> Personal access tokens --> Generate new token 
+                        --> Enter Password --> Note ==> Give a name 
+                        --> Check "repo" and "user"(check the needed items)           
+                        --> Enter "Generate Token" --> Copy Token
+
+            --> Branches to build
+                --> Branch Specifier (blank for 'any') ==> */master or */main (check from Github)
+
+            --> Repository browser ==> (Auto)
+    
+    * Build Triggers
+        --> Select ==> Build periodically  / Optional
+            --> H 10 * * * (Meaning: Runs at a randomly chosen minute during the 10:00 AM hour every day.)
+            
+                H  : Hash-based value (a randomly chosen minute within the hour)
+                10 : Hour (10th hour, i.e., from 10:00 AM to 10:59 AM)
+                *  : Day of the month (every day)
+                *  : Month (every month)
+                *  : Day of the week (every day of the week)
+
+    * Build Environment
+        ==> Inject environment variables to the build process
+            ==> Script Content (Credentials) (for Playwright)
+                cat <<EOF > .env
+                LIBRARY_URL = "https://library2.cydeo.com/"
+                LIBRARY_ADMIN_USERNAME="librarian10@library"
+                LIBRARY_ADMIN_PASSWORD="libraryUser"
+                LIBRARY_STUDENT_USERNAME="student5@library"
+                LIBRARY_STUDENT_PASSWORD="libraryUser"
+                EOF
+
+        ==> Provide Node & npm bin/ folder to PATH (for Playwright)
+
+    * Build Steps
+        --> Execute shell (for Playwright / for MacBook)
+            --> Command
+                npm install
+                npx playwright test
+
+        --> Add Post-build Actions (Cucumber reports)
+            --> Add post-build action (first install "Cucumber reports" plugin) 
+                --> Cucumber reports
+
+        --> Add Post-build Actions (HTML reports)
+            --> Publish HTML reports (first install "HTML Publisher" plugin) 
+                --> Add
+                --> Report title
+                    --> Write a title (Playwright HTML Report)
+--> Save
+
+
+
+*********************************************************************************
+*                                                                               *
+*                           ****** GMAIL ******                                 *
+*                                                                               *
+*********************************************************************************
+--> Check "CI-CD Jenkins 2022.pdf / page : 61-75"
+--> Click Add post-build action
+--> Select Editable Email Notification
+--> Put emails into Recipient List
+--> Content Type needs to be HTML(text/html)
+
+--> Click Advance Settings
+    --> Click Add Trigger 
+        --> Select "Always"
+
+*********************************************************************************
+*                                                                               *
+*                            ****** DISCORD ******                              *
+*                                                                               *
+*********************************************************************************
+--> Check "CI-CD Jenkins 2022.pdf / page : 58-61"
+--> Click Add post-build action
+    --> Choose Discord Notifier
+
+--> Take Webhook from Discord Channel
+    --> Add a Server --> Create My Own
+    --> Select a channel
+        --> Settings
+            --> Integrations
+                --> Wevhooks
+                    --> New Webhook
+                        --> Give a name and Click "Save Changes"  
+    
+--> Paste Webhook URL field
+
+* Attachments
+   ==> **/target/cucumber.json, **/target/cucumber-reports.html
+
+==> Apply & Save
+
+
+--> Build Now
+
+Configure --> We can able to change settings 
+
+Select the job ==> #1
+
+Select Console Output
+    
+Select Cucumber reports

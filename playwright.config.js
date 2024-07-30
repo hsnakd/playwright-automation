@@ -7,6 +7,9 @@ const { defineConfig, devices } = require('@playwright/test');
  */
 // require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
+/**
+ * @see https://playwright.dev/docs/test-configuration
+ */
 module.exports = defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -50,6 +53,8 @@ module.exports = defineConfig({
       use: { ...devices['Desktop Safari'] },
     },
   */
+ 
+    /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
     //   use: { ...devices['Pixel 5'] },
@@ -69,4 +74,11 @@ module.exports = defineConfig({
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
+
+  /* Run your local dev server before starting the tests */
+  // webServer: {
+  //   command: 'npm run start',
+  //   url: 'http://127.0.0.1:3000',
+  //   reuseExistingServer: !process.env.CI,
+  // },
 });

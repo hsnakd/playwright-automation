@@ -1,0 +1,33 @@
+--> Restart jenkins on Mac:
+	--> brew services restart jenkins-lt
+
+Open Jenkins
+
+--> Manage Jenkins
+	--> Plugins
+		--> Available plugins
+			--> search "NodeJS (Plugin)" and install
+			--> search "HTML Publisher" and install
+			--> search "EnvInject API" and install
+			--> search "Environment Injector" and install
+			--> search "Cucumber reports" and install
+
+		--> Installed plugins
+			--> check nodejs plugin downloaded	
+
+
+--> Restart jenkins on Mac:
+	--> brew services restart jenkins-lt
+
+
+--> Manage Jenkins 
+	--> Tools
+		--> NodeJS installations
+			--> Add NodeJS
+				--> Name -->  Give a name (NodeJS)
+				--> Install automatically --> Click check button 
+				--> Click Save button
+
+
+
+

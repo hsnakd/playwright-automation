@@ -45,6 +45,14 @@ function pause(seconds) {
 }
 
 test.describe("pause function tests", () => {
+  async function pause(duration) {
+    if (typeof duration !== 'number' || !Number.isFinite(duration) || duration < 0 || duration > Number.MAX_SAFE_INTEGER) {
+      throw new RangeError('Invalid duration');
+    }
+    return new Promise(resolve => setTimeout(resolve, duration));
+  }
+
+  
   test("pause function resolves if input is a positive integer", async () => {
     const positiveInteger = 1;
 
@@ -81,4 +89,15 @@ test.describe("pause function tests", () => {
 
     await expect(pause(nonNumber)).rejects.toThrow(RangeError);
   });
+
+
+  
+  test("pause function rejects with RangeError if input is greater than max safe integer2", async () => {
+    const maxSafeInteger = Number.MAX_SAFE_INTEGER;
+    const largeNumber = maxSafeInteger + 1;
+  
+    await expect(pause(largeNumber)).rejects.toThrow(RangeError);
+  });
+
+  
 });

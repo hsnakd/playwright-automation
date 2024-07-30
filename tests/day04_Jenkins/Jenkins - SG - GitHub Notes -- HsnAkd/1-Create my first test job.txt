@@ -29,9 +29,9 @@
                     --> if it is public  ==> -none-
 
                     --> if it is private --> Select Token
-                    --> if it is private & Havent add it yet
+                    --> if it is private & Haven't add it yet
                         --> add --> Jenkins 
-                            --> Domain  ==> Global cedentials (unrestricted)
+                            --> Domain  ==> Global credentials (unrestricted)
                             --> Kind    ==> Username with password
                                 --> Scope       ==> Global(Jenkins, nodes, items, all child itmes, etc)
                                 --> Username    ==> Enter GitHub Username
@@ -47,7 +47,7 @@
                         --> Enter "Generate Token" --> Copy Token
 
             --> Branches to build
-                --> Branch Specifier (blank for 'any') ==> */master
+                --> Branch Specifier (blank for 'any') ==> */master or */main (check from Github)
 
             --> Repository browser ==> (Auto)
     
@@ -57,9 +57,24 @@
             --> TZ=EST
             --> TZ=TZ=Europe/Istanbul
 
+            --> 0 10 * * * --> 
 
             --> Enter schedule as cron expression 
-                --> H 5 * * *       -->      
+                --> 0 5 * * *       -->   Meaning: Runs at 10:00 AM every day.
+                    0  : Minute (0th minute)
+                    10 : Hour (10th hour, i.e., 10:00 AM)
+                    *  : Day of the month (every day)
+                    *  : Month (every month)
+                    *  : Day of the week (every day of the week)
+
+                --> H 5 * * *       -->   Meaning: Runs at a randomly chosen minute during the 10:00 AM hour every day.
+                    H  : Hash-based value (a randomly chosen minute within the hour)
+                    10 : Hour (10th hour, i.e., from 10:00 AM to 10:59 AM)
+                    *  : Day of the month (every day)
+                    *  : Month (every month)
+                    *  : Day of the week (every day of the week)
+
+
                 H - allows jenkins to distribute load evenly. Let's say there 5 job execution scheduled at 5am. To improve performance, we can say that execute those 5 jobs around 5 am as per convenience. 
                 --> The H symbol can be used with a range. For example, H H(0-7) * * * means some time between 12:00 AM (midnight) to 7:59 AM. You can also use step intervals with H, with or without ranges.
 
@@ -101,8 +116,32 @@
 
 
     * Build Environment
-    
+        ==> Inject environment variables to the build process
+            ==> Script Content (Credentials) (for Playwright)
+                cat <<EOF > .env
+                LIBRARY_URL = "https://library2.cydeo.com/"
+                LIBRARY_ADMIN_USERNAME="librarian10@library"
+                LIBRARY_ADMIN_PASSWORD="libraryUser"
+                LIBRARY_STUDENT_USERNAME="student5@library"
+                LIBRARY_STUDENT_PASSWORD="libraryUser"
+                EOF
+
+        Click ==> Provide Node & npm bin/ folder to PATH (for Playwright)
+
     * Build Steps
+        --> Execute shell (for Playwright / for MacBook)
+            --> npm install
+                npx playwright test
+
+        --> Publish HTML reports(for Playwright) 
+            --> Click Add
+            --> Report title
+                --> write a title (Playwright HTML Report)
+            --> Save
+
+
+
+
         --> Add build step ==> Invoke top-level Maven targets
 
             --> Maven Version ==> default / M3
@@ -151,7 +190,7 @@
     --> Select a channel
         --> Settings
             --> Integrations
-                --> Wevhooks
+                --> Webhooks
                     --> New Webhook
                         --> Give a name and Click "Save Changes"  
     
