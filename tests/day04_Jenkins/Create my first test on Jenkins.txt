@@ -92,6 +92,10 @@
                 --> Add
                 --> Report title
                     --> Write a title (Playwright HTML Report)
+
+        --> Add Post-build Actions (Allure reports)
+            --> Allure Report (first install "Allure" plugin) 
+         
 --> Save
 
 
@@ -125,7 +129,7 @@
     --> Select a channel
         --> Settings
             --> Integrations
-                --> Wevhooks
+                --> Webhooks
                     --> New Webhook
                         --> Give a name and Click "Save Changes"  
     

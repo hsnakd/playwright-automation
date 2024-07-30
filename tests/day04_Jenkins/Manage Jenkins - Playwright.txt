@@ -11,6 +11,7 @@ Open Jenkins
 			--> search "EnvInject API" and install
 			--> search "Environment Injector" and install
 			--> search "Cucumber reports" and install
+			--> search "Allure" and install
 
 		--> Installed plugins
 			--> check nodejs plugin downloaded	
@@ -29,5 +30,11 @@ Open Jenkins
 				--> Click Save button
 
 
-
+--> Manage Jenkins 
+	--> Tools
+		--> Allure Commandline installations
+			--> Add Allure Commandline
+				--> Name -->  Give a name (Allure Commandline)
+				--> Install automatically --> Click check button 
+				--> Click Save button
 
