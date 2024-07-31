@@ -33,10 +33,10 @@
                         --> add --> Jenkins 
                             --> Domain  ==> Global credentials (unrestricted)
                             --> Kind    ==> Username with password
-                                --> Scope       ==> Global(Jenkins, nodes, items, all child itmes, etc)
+                                --> Scope       ==> Global(Jenkins, nodes, items, all child items, etc)
                                 --> Username    ==> Enter GitHub Username
                                 --> Password    ==> Enter GitHub Token --> Enter
-                                                ==> Select GitHub Tokenoken 
+                                                ==> Select GitHub Token 
                                 --> ID          ==> Enter a description 
                                 --> Description ==> Enter a description
                     --> Add            

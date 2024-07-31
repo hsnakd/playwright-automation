@@ -12,6 +12,7 @@ Open Jenkins
 			--> search "Environment Injector" and install
 			--> search "Cucumber reports" and install
 			--> search "Allure" and install
+			--> search "Discord Notifier" and install
 
 		--> Installed plugins
 			--> check nodejs plugin downloaded	

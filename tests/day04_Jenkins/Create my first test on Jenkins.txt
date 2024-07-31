@@ -12,7 +12,7 @@
     
     --> Select --> Freestyle project
         
-    --> Click --> OK
+    --> OK
 
 4.  Job steps:
     * General
@@ -55,10 +55,12 @@
             --> Repository browser ==> (Auto)
     
     * Build Triggers
-        --> Select ==> Build periodically  / Optional
+        ==> Build periodically  / Optional
             --> H 10 * * * (Meaning: Runs at a randomly chosen minute during the 10:00 AM hour every day.)
             
+                0  : 0  : Minute (0th minute) (10th hour, i.e., 10:00 AM)
                 H  : Hash-based value (a randomly chosen minute within the hour)
+                
                 10 : Hour (10th hour, i.e., from 10:00 AM to 10:59 AM)
                 *  : Day of the month (every day)
                 *  : Month (every month)
