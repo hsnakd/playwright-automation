@@ -1,0 +1,102 @@
+--> Source Control
+	--> Publish to GitHub
+		--> Allow
+			--> Select on of them
+				--> Publish to Github public  repository hsnakd/LibraryAutomationJS
+				--> Publish to Github private repository hsnakd/LibraryAutomationJS
+
+
+--> Open GitHub repository (hsnakd/LibraryAutomationJS)
+	--> Click main
+		--> View all branches 
+			--> New branch
+				Give a name to the new branch (develop)
+				--> Source ==> main
+				--> Create a new branch
+
+			--> Refresh the page
+1. 
+			--> New branch
+				Give a name to the new branch (feature/@lib-01-login)
+				--> Source ==> develop
+				--> Create a new branch
+ 
+--> Open Vs Code
+2.	--> Source Control
+		--> Fetch
+		--> Pull
+
+	--> Click main (at left bottom)
+		--> click the branch name
+			(feature/@lib-01-login)
+	--> Check 
+
+3. 	--> Source Control
+		--> Pull,Push ==> Pull from
+		--> Select ==> origin/develop
+
+4. --> 5. --> 6
+
+7.	--> Source Control
+		--> Click add button ==> +
+		--> Write commit message ==> feature/@lib-01-login
+		--> Commit
+		--> Push
+
+8.
+--> Open Github repository
+	--> Open "feature/@lib-01-login" branch
+		--> Click "Pull request" 
+			--> New pull request
+				--> Comparing changes
+					==> develop <-- feature/@lib-01-login
+				--> Create pull request	
+				--> Add your description
+					==> feature/@lib-01-login
+				--> Create pull request
+
+9.
+	--> Open "feature/@lib-01-login" branch
+		--> Select develop branch
+			--> Pull request (1)
+				--> Click "feature/@lib-01-login completed"
+					--> You can check "Files changed" 
+				    --> Click "Merge pull request"
+						--> Click "Confirm merge"
+						--> If you want you can delete the branch (Pull request successfully merged and closed)
+
+
+
+1. Create a Feature Branch
+	Create a new branch for your feature
+	Use the naming convention: feature/tag-feature-name (feature/@lib-01-login)
+
+2. Switch to the Feature Branch
+	In VS Code, checkout the newly created feature branch
+
+3. Update Your Feature Branch
+	Pull the latest updates from the develop branch into your feature branch
+	This ensures you're working with the most recent codebase
+
+4. Develop Your Feature
+	Work on your feature in the designated file(s)
+
+5. Generate Step Definitions
+	Create step definitions for your feature
+
+6. Test Your Feature
+	Run the step definitions to ensure your feature works as expected
+
+7. Push Changes to Remote
+	Commit your changes locally
+	Push the committed changes to the remote feature branch
+
+8. Create a Pull Request
+	On your git platform (e.g., GitHub, GitLab), create a pull request
+	Set the source as your remote feature branch
+	Set the target as the remote develop branch
+
+9. Merge the Feature
+	After review and approval, merge the pull request
+	This integrates your feature into the develop branch
+
