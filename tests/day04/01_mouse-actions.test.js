@@ -87,7 +87,7 @@ test.describe("Mouse Actions", async () => {
     // drag and drop is performed on web elements directly
     const source_element = page.locator("//div[@id='column-a']");
     const target_element = page.locator("//div[@id='column-b']");
-    source_element.dragTo(target_element);
+    await source_element.dragTo(target_element);
     await page.waitForTimeout(1000);
 
     const draggableElement = page.locator("//div[@class='column' and @draggable='true']");
