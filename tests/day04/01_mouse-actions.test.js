@@ -51,7 +51,7 @@ test.describe("Mouse Actions", async () => {
 
     const invisibleElements = page.locator("//h5");
 
-    // create a for of loop that can iterate each elements of the elements
+    // create a for of loop that can iterate each element of the elements
     for (const each_element of await elements.all()) {
       await page.waitForTimeout(2000);
       await each_element.hover();
