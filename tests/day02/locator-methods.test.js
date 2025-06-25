@@ -7,14 +7,14 @@ test("check & uncheck method test: can be used for radio buttons & checkboxes", 
   // pause the automation for 2 seconds
   await page.waitForTimeout(1000);
 
-  // create locator variable named checkBox1 with this xPath "//input[@id='box1']"
+  // create a locator variable named checkBox1 with this xPath "//input[@id='box1']"
    const checkBox1 = await page.locator("//input[@id='box1']");
    await checkBox1.check();
 
   // pause the automation for 2 seconds
   await page.waitForTimeout(1000);
 
-  // create locator variable named checkBox2 with this xPath "//input[@id='box2']"
+  // create a locator variable named checkBox2 with this xPath "//input[@id='box2']"
   const checkBox2 = await page.locator("//input[@id='box2']");
    await checkBox2.uncheck();
 

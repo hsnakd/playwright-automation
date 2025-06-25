@@ -47,12 +47,12 @@ Your response should contain only the CSS locator and nothing else.
 
 Use single quotes when you are giving the value of attributes in the locator
 
-Privacy : Secret
+Privacy: Secret
 
 
 
 
-Automation framwork setup:
+Automation framework setup:
     JS:
         npm init -y
         npm install @playwright/test @cucumber/cucumber

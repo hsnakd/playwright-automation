@@ -6,13 +6,13 @@ test('Library Login', async ({ page }) => {
   // go to the "https://library2.cydeo.com"
   await page.goto(process.env.LIBRARY_URL);
 
-  // create locator variable named usernameInput and use this xpath // //input[@id='inputEmail']
+  // create a locator variable named usernameInput and use this xpath // //input[@id='inputEmail']
   const usernameInput = await page.locator("//input[@id='inputEmail']");
 
-  // create locator variable named passwordInput and use this xpath //input[@id='inputPassword'] to locate
+  // create a locator variable named passwordInput and use this xpath //input[@id='inputPassword'] to locate
   const passwordInput = await page.locator("//input[@id='inputPassword']");
 
-  // create locator variable named signInButton and use this xpath //button[@type='submit'] to locate
+  // create a locator variable named signInButton and use this xpath //button[@type='submit'] to locate
   const signInButton = await page.locator("//button[@type='submit']");
 
   // pause the automation for 2 seconds

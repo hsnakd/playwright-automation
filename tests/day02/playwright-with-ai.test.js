@@ -3,9 +3,9 @@ import { test } from '@playwright/test';
 test('YouTube Test', async ({ page }) => {
   
   await page.goto('https://www.youtube.com/');
-  
-  const searchBox = await page.locator("//input[@id='search']");
-  
+
+    const searchBox = page.locator('//input[@name="search_query"]');
+
   // pause the automation for 3 seconds
   await page.waitForTimeout(3000);
 

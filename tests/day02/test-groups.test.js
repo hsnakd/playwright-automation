@@ -16,7 +16,7 @@ test.describe("Cydeo practice website tests", async () => {
     
     const abTestingElement = await page.locator("text='A/B Testing'");
     console.log(`A/B Testing is clickable: ${await abTestingElement.isEnabled()}`);
-    abTestingElement.click();
+    await abTestingElement.click();
 
   });
 

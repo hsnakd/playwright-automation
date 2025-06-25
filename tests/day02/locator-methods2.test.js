@@ -26,7 +26,7 @@ test('inputValue method test: only works with <input> or <textarea> or <select>'
   // go to https://practice.cydeo.com/inputs   
   await page.goto('https://practice.cydeo.com/inputs');
 
-  // create locator variable named inputBox with the xpath //input[@type='number']
+  // create a locator variable named inputBox with the xpath //input[@type='number']
   const inputBox = await page.locator("//input[@type='number']");
 
   await inputBox.fill("1200");
